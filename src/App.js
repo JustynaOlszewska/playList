@@ -1,14 +1,19 @@
-import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import NavBar from "./components/organism/NavBar";
-import "./App.css";
+import React, { lazy, Suspense } from "react";
+import { Route, Switch } from "react-router-dom";
+import Spinner from "./components/molecules/spinner/Spinner";
+const NavBar = lazy(() => import("./components/organism/NavBar"));
+const Authors = lazy(() => import("./components/pages/Authors"));
 
 function App() {
   return (
-    <div>
-      <NavBar />
-      <Router></Router>
-    </div>
+    <Suspense fallback={<Spinner />}>
+      <div>
+        <NavBar />
+        <Switch>
+          <Route path="/authors" component={Authors} />
+        </Switch>
+      </div>
+    </Suspense>
   );
 }
 
