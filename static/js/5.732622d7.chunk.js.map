@@ -1,0 +1,1 @@
+{"version":3,"sources":["components/pages/Authors.js"],"names":["Authors"],"mappings":"qGAAA,uBAMeA,UAJC,WACd,OAAO","file":"static/js/5.732622d7.chunk.js","sourcesContent":["import React from \"react\";\n\nconst Authors = () => {\n  return <div>authors</div>;\n};\n\nexport default Authors;\n"],"sourceRoot":""}

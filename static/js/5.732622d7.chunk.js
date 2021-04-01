@@ -1,0 +1,2 @@
+(this.webpackJsonpplaylist=this.webpackJsonpplaylist||[]).push([[5],{77:function(t,s,i){"use strict";i.r(s);i(0);var n=i(3);s.default=function(){return Object(n.jsx)("div",{children:"authors"})}}}]);
+//# sourceMappingURL=5.732622d7.chunk.js.map
