@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -37,7 +38,9 @@ const Navbar = () => {
           <Typography variant="h6" className={classes.title}>
             Manage your playlists
           </Typography>
-          <Button color="inherit">Authors</Button>
+          <Button color="inherit">
+            <NavLink to="/authors">Authors</NavLink>
+          </Button>
         </Toolbar>
       </AppBar>
     </div>
