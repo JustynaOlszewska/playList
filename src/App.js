@@ -16,7 +16,7 @@ function App() {
       <div>
         <NavBar />
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/playList" component={Home} />
           <Route path="/addAuthor" component={AddAuthor} />
           <Route path="/updateAuthors/:id" component={UpdateAuthors} />
           <Route path="/authors" component={Authors} />
