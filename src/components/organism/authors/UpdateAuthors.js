@@ -1,23 +1,23 @@
 import React, { lazy } from "react";
-import { useParams, useHistory } from "react-router-dom";
-import { useMutation, useQuery } from "react-query";
+import { useParams } from "react-router-dom";
+import { useQuery } from "react-query";
 import Spinner from "../../molecules/spinner/Spinner";
-const FormAuthors = lazy(() => import("./FormAuthors.js"));
 import { getAuthor, updateAuthor } from "../../../api/apiAuthors";
+import { useFormAuthors } from "../../../hook/authors/useFormAuthors";
+const FormAuthors = lazy(() => import("./FormAuthors.js"));
 
 const UpdateAuthors = () => {
   const { id } = useParams();
-  const history = useHistory();
+
   const { data, error, isLoading, isError } = useQuery(
     ["author", { id }],
     getAuthor
   );
-  const { mutateAsync, isLoading: isMutating } = useMutation(updateAuthor);
 
-  const onFormSubmit = async (data) => {
-    await mutateAsync({ ...data, id });
-    history.push("/authors");
-  };
+  const { isLoading: isMutating, onFormSubmit } = useFormAuthors(
+    updateAuthor,
+    id
+  );
 
   return (
     <div>
@@ -25,6 +25,7 @@ const UpdateAuthors = () => {
         <Spinner />
       ) : (
         <FormAuthors
+          type="update"
           defaultValue={data}
           onFormSubmit={onFormSubmit}
           isLoading={isMutating}

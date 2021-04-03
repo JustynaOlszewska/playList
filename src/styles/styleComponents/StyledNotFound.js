@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 export const StyledDiv = styled.div`
-  color: white;
-  /* height: 100vh; */
+  color: black;
   text-align: center;
   margin: 20px;
   @media (min-width: 300px) and (orientation: portrait) {

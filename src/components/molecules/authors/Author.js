@@ -2,10 +2,13 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 import PropTypes from "prop-types";
+import Button from "@material-ui/core/Button";
 import { removeAuthor } from "../../../api/apiAuthors";
+import { StyledLi } from "../../../styles/styleComponents/StyledAuthor";
 
 const Author = ({ author }) => {
   const queryClient = useQueryClient();
+
   const { mutateAsync, isLoading } = useMutation(removeAuthor);
 
   const { name, id } = author;
@@ -16,10 +19,12 @@ const Author = ({ author }) => {
   };
 
   return (
-    <li>
+    <StyledLi>
       <NavLink to={`/updateAuthors/${id}`}>{name}</NavLink>
-      <button onClick={remove}>{isLoading ? "wait..." : "Delete"}</button>
-    </li>
+      <Button variant="outlined" color="primary" onClick={remove}>
+        {isLoading ? "wait..." : "Delete"}
+      </Button>
+    </StyledLi>
   );
 };
 

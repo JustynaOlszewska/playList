@@ -9,6 +9,9 @@ body {
     font-size: 16px;
     min-height: 100vh;
     width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    background-color: black;
 };
 `;
 

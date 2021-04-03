@@ -5,7 +5,7 @@ import { StyledDiv } from "../../styles/styleComponents/StyledNotFound";
 const NotFound = () => {
   return (
     <StyledDiv>
-      <h1>404 - Not Found!</h1>
+      <h4>404 - Not Found!</h4>
       <NavLink to="/playList">Go Home</NavLink>
     </StyledDiv>
   );
