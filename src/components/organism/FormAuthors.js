@@ -6,9 +6,15 @@ import Button from "@material-ui/core/Button";
 import {
   StyledForm,
   StyledInput,
-} from "../../../styles/styleComponents/StyledFormAuthors";
+} from "../../styles/styleComponents/StyledFormAuthors";
 
-const FormAuthors = ({ defaultValues, onFormSubmit, isLoading, type }) => {
+const FormAuthors = ({
+  defaultValues,
+  onFormSubmit,
+  isLoading,
+  type,
+  children,
+}) => {
   const { register, handleSubmit, errors } = useForm({ defaultValues });
 
   const onSubmit = handleSubmit((data) => {
@@ -17,11 +23,11 @@ const FormAuthors = ({ defaultValues, onFormSubmit, isLoading, type }) => {
 
   return (
     <StyledForm type={type} onSubmit={onSubmit}>
-      <h1>{type === "add" ? "Add Author" : "Change Author"}</h1>
+      <h1>{children}</h1>
       <InputLabel htmlFor="name">Author</InputLabel>
       <StyledInput type="text" id="name" name="name" ref={register} />
       <Button variant="outlined" color="primary" type="Submit">
-        {isLoading ? "Wait..." : type === "add" ? "Add" : "Change"}
+        {isLoading ? "Wait..." : children.split(" ").slice(0, 1)}
       </Button>
       {errors.exampleRequired && <span>This field is required</span>}
     </StyledForm>
@@ -33,6 +39,7 @@ FormAuthors.propTypes = {
   onFormSubmit: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   type: PropTypes.string.isRequired,
+  children: PropTypes.string.isRequired,
 };
 
 export default FormAuthors;

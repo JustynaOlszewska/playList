@@ -12,9 +12,14 @@ const Navbar = () => {
     <AppBar position="static">
       <StyledToolbar>
         <Typography variant="h6">Manage your playlists</Typography>
-        <Button color="inherit">
-          <StyledNavLink to="/authors">Authors</StyledNavLink>
-        </Button>
+        <ul>
+          <Button color="inherit">
+            <StyledNavLink to="/authors">Authors</StyledNavLink>
+          </Button>
+          <Button color="inherit">
+            <StyledNavLink to="/songs">Songs</StyledNavLink>
+          </Button>
+        </ul>
       </StyledToolbar>
     </AppBar>
   );

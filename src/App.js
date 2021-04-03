@@ -9,6 +9,7 @@ const UpdateAuthors = lazy(() =>
   import("./components/organism/authors/UpdateAuthors")
 );
 const AddAuthor = lazy(() => import("./components/organism/authors/AddAuthor"));
+const Songs = lazy(() => import("./components/organism/songs/Songs"));
 const NotFound = lazy(() => import("./components/pages/NotFound.js"));
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/addAuthor" component={AddAuthor} />
           <Route path="/updateAuthors/:id" component={UpdateAuthors} />
           <Route path="/authors" component={Authors} />
+          <Route path="/songs" component={Songs} />
           <Route component={NotFound} />
         </Switch>
       </Suspense>

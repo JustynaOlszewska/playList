@@ -1,7 +1,7 @@
 import React, { lazy } from "react";
 import { addAuthor } from "../../../api/apiAuthors";
 import Spinner from "../../molecules/spinner/Spinner";
-const FormAuthors = lazy(() => import("./FormAuthors.js"));
+const FormAuthors = lazy(() => import("../FormAuthors.js"));
 import { useFormAuthors } from "../../../hook/authors/useFormAuthors";
 
 const AddAuthor = () => {
@@ -16,7 +16,9 @@ const AddAuthor = () => {
           type="add"
           onFormSubmit={onFormSubmit}
           isLoading={isLoading}
-        />
+        >
+          Add Author
+        </FormAuthors>
       )}
     </div>
   );
