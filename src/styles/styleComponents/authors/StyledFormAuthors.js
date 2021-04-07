@@ -13,6 +13,9 @@ export const StyledForm = styled.form`
       text-transform: uppercase;
       color: red;
     `}
+  @media(min-height: 900px) {
+    justify-content: flex-start;
+  }
 `;
 
 export const StyledInput = styled(TextField)`

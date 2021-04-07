@@ -8,7 +8,7 @@ import { getAllSongs } from "../../api/apiSongs";
 import { ItemTypes } from "../../constants";
 import { useQuery } from "react-query";
 // const MyPlayList = lazy(() => import("../organism/exercise/MyPlayList"));
-const AllSongs = lazy(() => import("../organism/exercise/AllSongs"));
+const AllSongs = lazy(() => import("../organism/playList/AllSongs"));
 
 /////
 const StyledDiv = styled.div`

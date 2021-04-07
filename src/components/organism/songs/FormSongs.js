@@ -1,17 +1,30 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
-import { useMutation, useQueryClient } from "react-query";
 import PropTypes from "prop-types";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { addSong } from "../../../api/apiSongs";
 import InputLabel from "@material-ui/core/InputLabel";
 import Button from "@material-ui/core/Button";
-// import Select from '@material-ui/core/Select';
-import { addSong } from "../../../api/apiSongs";
+import Alert from "@material-ui/lab/Alert";
 import { updateSong } from "../../../api/apiSongs";
 import {
-  StyledForm,
   StyledInput,
+  StyledForm,
 } from "../../../styles/styleComponents/authors/StyledFormAuthors";
+import { useSongs } from "../../../hook/songs/useSongs";
+
+const schemaValidation = yup.object().shape({
+  title: yup
+    .string()
+    .required("Title field is required")
+    .max(30, "Title field should contains max 30 characters"),
+  author: yup.string().required("Author fiels is required"),
+  duration: yup
+    .number()
+    .typeError("Duration field must be a number")
+    .required("Duration field is required"),
+});
 
 const FormSongs = ({
   defaultValue,
@@ -21,77 +34,84 @@ const FormSongs = ({
   typeSong,
   children,
 }) => {
-  const { id } = useParams();
-
-  const { register, handleSubmit, errors, reset } = useForm({ defaultValue });
-
-  const queryClient = useQueryClient();
-  const taskSongs = type === "add" ? addSong : updateSong;
-  const { mutateAsync } = useMutation(taskSongs);
-
-  const onSubmit = handleSubmit((data) => {
-    let { author, title, duration } = data;
-    const newAuthor = allAuthors.filter((e) => e.name === author);
-    onFormSubmit({ title, author: newAuthor[0], duration });
-    reset();
+  const { register, handleSubmit, errors, reset } = useForm({
+    defaultValue,
+    resolver: yupResolver(schemaValidation),
   });
 
-  const onFormSubmit = async (data) => {
-    await mutateAsync(id ? { ...data, id } : data);
-    queryClient.invalidateQueries("songs");
-  };
+  const taskSongs = type === "add" ? addSong : updateSong;
+  const { onSubmit } = useSongs(taskSongs, reset, allAuthors);
 
   return (
-    <StyledForm type={type} onSubmit={onSubmit}>
-      <h1>{children}</h1>
-      <InputLabel htmlFor="tite">Title of song</InputLabel>
-      <StyledInput
-        required
-        type="text"
-        id="title"
-        name="title"
-        inputProps={{
-          maxLength: 30,
-        }}
-        inputRef={register}
-      />
-      <InputLabel style={{ margin: "10px 0" }} htmlFor="author">
-        Author
-      </InputLabel>
-      <select
-        style={{ width: "80%", margin: "0 0 20px 0" }}
-        id="author"
-        name="author"
-        ref={register}
+    <Fragment>
+      <StyledForm
+        style={{ position: "relative" }}
+        type={type}
+        onSubmit={handleSubmit(onSubmit)}
       >
-        {allAuthors &&
-          allAuthors.map((item) => (
-            <option key={item.id} value={item.name}>
-              {item.name}
-            </option>
-          ))}
-      </select>
-      <InputLabel htmlFor="duration">Duration</InputLabel>
-      <StyledInput
-        required
-        typeSong={typeSong}
-        type="number"
-        inputProps={{ min: "1", max: "10", step: "1" }}
-        id="duration"
-        name="duration"
-        ref={register}
-      />
-      <Button variant="outlined" color="primary" type="Submit">
-        {isLoading ? "Wait..." : children.split(" ").slice(0, 1)}
-      </Button>
-      {errors.exampleRequired && <span>This field is required</span>}
-    </StyledForm>
+        <h1>{children}</h1>
+        <InputLabel htmlFor="tite">Title of song</InputLabel>
+        <StyledInput
+          required
+          type="text"
+          id="title"
+          name="title"
+          inputRef={register}
+          errors={errors.title}
+        />
+        <InputLabel style={{ margin: "10px 0" }} htmlFor="author">
+          Author
+        </InputLabel>
+        <select
+          style={{ width: "80%", margin: "0 0 20px 0" }}
+          id="author"
+          name="author"
+          ref={register}
+          errors={errors.author}
+        >
+          {allAuthors &&
+            allAuthors.map((item) => (
+              <option key={item.id} value={item.name}>
+                {item.name}
+              </option>
+            ))}
+        </select>
+        <InputLabel htmlFor="duration">Duration</InputLabel>
+        <StyledInput
+          required
+          typeSong={typeSong}
+          type="number"
+          inputProps={{ min: "1", max: "10", step: "1" }}
+          id="duration"
+          name="duration"
+          inputRef={register}
+          errors={errors.duration}
+        />
+        <Button variant="outlined" color="primary" type="submit">
+          {isLoading ? "Wait..." : children.split(" ").slice(0, 1)}
+        </Button>
+        {errors.exampleRequired && <span>This field is required</span>}
+        <div style={{ position: "absolute", top: "-30%", width: "100%" }}>
+          {errors?.title?.message && (
+            <Alert severity="error">
+              <p>{errors?.title?.message}</p>
+            </Alert>
+          )}
+          {errors?.author?.message && (
+            <Alert severity="error">{errors?.author?.message}</Alert>
+          )}
+          {errors?.duration?.message && (
+            <Alert severity="error">{errors?.duration?.message}</Alert>
+          )}
+        </div>
+      </StyledForm>
+    </Fragment>
   );
 };
 
 FormSongs.propTypes = {
-  defaultValue: PropTypes.number,
-  onFormSubmit: PropTypes.func.isRequired,
+  defaultValue: PropTypes.array,
+  onFormSubmit: PropTypes.func,
   isLoading: PropTypes.bool.isRequired,
   type: PropTypes.string.isRequired,
   typeSong: PropTypes.string,

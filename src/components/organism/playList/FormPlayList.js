@@ -20,7 +20,7 @@ const FormPlayList = ({
 }) => {
   // eslint-disable-next-line
   const [{ isOver }, addToPlayList] = useDrop(() => ({
-    accept: ItemTypes.PAYLISTDND,
+    accept: ItemTypes.PLAYLISTDND,
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
@@ -51,7 +51,7 @@ const FormPlayList = ({
         {b.map((e, index) => (
           <li
             index={index}
-            typednd={ItemTypes.PAYLISTDND}
+            typednd={ItemTypes.PLAYLISTDND}
             dropsongs={dropsongs}
             key={e.name}
           >
