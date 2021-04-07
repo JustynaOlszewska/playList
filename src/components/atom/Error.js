@@ -1,0 +1,13 @@
+import React from "react";
+import PropTypes from "prop-types";
+
+const Error = ({ isError, message }) => {
+  return isError && <span>Error: {message}</span>;
+};
+
+Error.propTypes = {
+  isError: PropTypes.bool.isRequired,
+  message: PropTypes.string,
+};
+
+export default Error;

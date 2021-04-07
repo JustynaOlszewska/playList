@@ -1,10 +1,11 @@
-import React from "react";
+import React, { lazy } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getSong } from "../../../api/apiSongs";
 import PropTypes from "prop-types";
 import { StyledDiv } from "../../../styles/styleComponents/songs/StyledSongDetails";
 import Spinner from "../../molecules/spinner/Spinner";
+const Error = lazy(() => import("../../atom/Error"));
 
 const SongDetails = () => {
   const { id } = useParams();
@@ -26,7 +27,7 @@ const SongDetails = () => {
           <h6>Playlists: {data?.playlists}</h6>
         </>
       )}
-      {isError && <span>{error.message}</span>}
+      <Error isError={isError} massage={error?.message} />
     </StyledDiv>
   );
 };

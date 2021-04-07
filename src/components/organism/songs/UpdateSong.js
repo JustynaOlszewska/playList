@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { getAllAuthors } from "../../../api/apiAuthors";
 import Spinner from "../../molecules/spinner/Spinner";
 const FormSongs = lazy(() => import("./FormSongs"));
+const Error = lazy(() => import("../../atom/Error"));
 
 const UpdateSongs = () => {
   const { data, isLoading, error, isError } = useQuery(
@@ -24,7 +25,7 @@ const UpdateSongs = () => {
           Update Songs
         </FormSongs>
       )}
-      {isError && <span>Error: {error.message}</span>}
+      <Error isError={isError} massage={error?.message} />
     </div>
   );
 };

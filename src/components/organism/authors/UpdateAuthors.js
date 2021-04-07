@@ -5,6 +5,7 @@ import Spinner from "../../molecules/spinner/Spinner";
 import { getAuthor, updateAuthor } from "../../../api/apiAuthors";
 import { useFormAuthors } from "../../../hook/authors/useFormAuthors";
 const FormAuthors = lazy(() => import("./FormAuthors"));
+const Error = lazy(() => import("../../atom/Error"));
 
 const UpdateAuthors = () => {
   const { id } = useParams();
@@ -34,7 +35,7 @@ const UpdateAuthors = () => {
           Update Authors
         </FormAuthors>
       )}
-      {isError && <span>Error: {error.message}</span>}
+      <Error isError={isError} massage={error?.message} />
     </div>
   );
 };

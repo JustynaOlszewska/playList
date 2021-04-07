@@ -9,6 +9,7 @@ import {
 } from "../../../styles/styleComponents/songs/StyledListSongs";
 import Spinner from "../../molecules/spinner/Spinner";
 const Song = lazy(() => import("../songs/Song"));
+const Error = lazy(() => import("../../atom/Error"));
 
 const ListSongs = () => {
   const match = useRouteMatch();
@@ -32,7 +33,7 @@ const ListSongs = () => {
           ))}
         </StyledUl>
       )}
-      {isError && <span>Error: {error.message}</span>}
+      <Error isError={isError} massage={error?.message} />
     </StyledListSongs>
   );
 };

@@ -9,6 +9,7 @@ import {
 } from "../../styles/styleComponents/authors/StyledAuthors";
 import Spinner from "../molecules/spinner/Spinner";
 const Author = lazy(() => import("../molecules/authors/Author"));
+const Error = lazy(() => import("../atom/Error"));
 
 const Authors = () => {
   const { data, error, isLoading, isError } = useQuery(
@@ -30,7 +31,7 @@ const Authors = () => {
           ))}
         </StyledUl>
       )}
-      {isError && <span>Error: {error.message}</span>}
+      <Error isError={isError} massage={error?.message} />
     </StyledListAuthors>
   );
 };
