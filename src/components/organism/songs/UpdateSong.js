@@ -17,7 +17,6 @@ const UpdateSongs = () => {
       ) : (
         <FormSongs
           type="update"
-          typeSong="song"
           defaultValue={data}
           isLoading={isLoading}
           allAuthors={data}

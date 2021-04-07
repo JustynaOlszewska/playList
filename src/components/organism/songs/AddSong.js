@@ -18,7 +18,6 @@ const AddSongs = () => {
         ) : (
           <FormSongs
             type="add"
-            typeSong="song"
             defaultValue={data}
             isLoading={isLoading}
             allAuthors={data}

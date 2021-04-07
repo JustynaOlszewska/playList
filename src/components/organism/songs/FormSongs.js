@@ -26,14 +26,7 @@ const schemaValidation = yup.object().shape({
     .required("Duration field is required"),
 });
 
-const FormSongs = ({
-  defaultValue,
-  isLoading,
-  type,
-  allAuthors,
-  typeSong,
-  children,
-}) => {
+const FormSongs = ({ defaultValue, isLoading, type, allAuthors, children }) => {
   const { register, handleSubmit, errors, reset } = useForm({
     defaultValue,
     resolver: yupResolver(schemaValidation),
@@ -79,7 +72,6 @@ const FormSongs = ({
         <InputLabel htmlFor="duration">Duration</InputLabel>
         <StyledInput
           required
-          typeSong={typeSong}
           type="number"
           inputProps={{ min: "1", max: "10", step: "1" }}
           id="duration"
@@ -114,7 +106,6 @@ FormSongs.propTypes = {
   onFormSubmit: PropTypes.func,
   isLoading: PropTypes.bool.isRequired,
   type: PropTypes.string.isRequired,
-  typeSong: PropTypes.string,
   children: PropTypes.string.isRequired,
   allAuthors: PropTypes.array,
 };
