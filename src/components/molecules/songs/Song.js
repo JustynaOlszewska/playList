@@ -1,6 +1,5 @@
 import React from "react";
 import { useRouteMatch, NavLink } from "react-router-dom";
-import { useMutation, useQueryClient } from "react-query";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import { removeSong } from "../../../api/apiSongs";
@@ -8,19 +7,14 @@ import {
   StyledLi,
   StyledNavLink,
 } from "../../../styles/styleComponents/songs/StyledSong";
+import { useRemove } from "../../../hook/share/useRemove";
 
 const Song = ({ song }) => {
   const match = useRouteMatch();
 
-  const queryClient = useQueryClient();
-  const { mutateAsync, isLoading } = useMutation(removeSong);
-
   const { title, id } = song;
 
-  const remove = async () => {
-    await mutateAsync(id);
-    queryClient.invalidateQueries("songs");
-  };
+  const [remove, isLoading] = useRemove(removeSong, id, "songs");
 
   return (
     <StyledLi>

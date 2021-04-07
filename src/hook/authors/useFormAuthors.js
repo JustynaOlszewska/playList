@@ -10,5 +10,6 @@ export const useFormAuthors = (add, path, id = null) => {
     await mutateAsync(id ? { ...data, id } : data);
     history.push(path);
   };
+
   return { onFormSubmit, isLoading };
 };

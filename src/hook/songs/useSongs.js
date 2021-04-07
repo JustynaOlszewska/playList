@@ -5,7 +5,9 @@ export const useSongs = (taskSongs, reset, allAuthors) => {
   const { id } = useParams();
 
   const queryClient = useQueryClient();
+
   const { mutateAsync } = useMutation(taskSongs);
+
   const onSubmit = (data) => {
     let { author, title, duration } = data;
     const newAuthor = allAuthors.filter((e) => e.name === author);
@@ -17,5 +19,6 @@ export const useSongs = (taskSongs, reset, allAuthors) => {
     await mutateAsync(id ? { ...data, id } : data);
     queryClient.invalidateQueries("songs");
   };
+
   return { onSubmit };
 };
