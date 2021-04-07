@@ -1,1 +1,0 @@
-{"version":3,"sources":["components/molecules/songs/SongDetails.js"],"names":["SongDetails"],"mappings":"uGAAA,uBAMeA,UAJK,WAClB,OAAO","file":"static/js/13.553be19e.chunk.js","sourcesContent":["import React from \"react\";\n\nconst SongDetails = () => {\n  return <div>SongDetails</div>;\n};\n\nexport default SongDetails;\n"],"sourceRoot":""}
