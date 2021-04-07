@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "react-query";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import { removeAuthor } from "../../../api/apiAuthors";
-import { StyledLi } from "../../../styles/styleComponents/StyledAuthor";
+import { StyledLi } from "../../../styles/styleComponents/authors/StyledAuthor";
 
 const Author = ({ author }) => {
   const queryClient = useQueryClient();

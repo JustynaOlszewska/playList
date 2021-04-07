@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FlexDirection } from "../helperStyles/FlexDirection";
+import { FlexDirection } from "../../helperStyles/FlexDirection";
 
 export const StyledListAuthors = styled.section`
   ${FlexDirection}

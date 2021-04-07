@@ -15,24 +15,24 @@ const songActions = async (url, method, data) => {
   }
 };
 
-export const getAllSongs = () => {
+export const getAllPlayList = () => {
   return songActions(`${apiURL}-songs`, "GET");
 };
 
-export const removeSong = (id) => {
-  return songActions(`${apiURL}-songs/${id}`, "DELETE");
+export const removePlayList = (id) => {
+  return songActions(`${apiURL}-playlists/${id}`, "DELETE");
 };
 
-export const addSong = (data) => {
-  return songActions(`${apiURL}-songs`, "POST", data);
+export const addPlayList = (data) => {
+  return songActions(`${apiURL}-playlists`, "POST", data);
 };
 
-export const updateSong = ({ id, ...data }) => {
-  return songActions(`${apiURL}-songs/${id}`, "PUT", data);
+export const updatePlayList = ({ id, ...data }) => {
+  return songActions(`${apiURL}-playlists/${id}`, "PUT", data);
 };
 
-export const getSong = ({ queryKey }) => {
+export const getPlayList = ({ queryKey }) => {
   /*eslint-disable no-unused-vars*/
   const [_key, { id }] = queryKey;
-  return songActions(`${apiURL}-songs/${id}`, "GET");
+  return songActions(`${apiURL}-playlists/${id}`, "GET");
 };

@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import {
   StyledToolbar,
   StyledNavLink,
+  StyledUl,
 } from "../../styles/styleComponents/StyledNavBar";
 
 const Navbar = () => {
@@ -12,14 +13,17 @@ const Navbar = () => {
     <AppBar position="static">
       <StyledToolbar>
         <Typography variant="h6">Manage your playlists</Typography>
-        <ul>
+        <StyledUl>
           <Button color="inherit">
             <StyledNavLink to="/authors">Authors</StyledNavLink>
           </Button>
           <Button color="inherit">
             <StyledNavLink to="/songs">Songs</StyledNavLink>
           </Button>
-        </ul>
+          <Button color="inherit">
+            <StyledNavLink to="/listPlay">Playlist</StyledNavLink>
+          </Button>
+        </StyledUl>
       </StyledToolbar>
     </AppBar>
   );

@@ -2,12 +2,12 @@ import React, { lazy } from "react";
 import { useQuery } from "react-query";
 import { NavLink } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import Spinner from "../molecules/spinner/Spinner";
 import { getAllAuthors } from "../../api/apiAuthors";
 import {
   StyledListAuthors,
   StyledUl,
-} from "../../styles/styleComponents/StyledAuthors";
+} from "../../styles/styleComponents/authors/StyledAuthors";
+import Spinner from "../molecules/spinner/Spinner";
 const Author = lazy(() => import("../molecules/authors/Author"));
 
 const Authors = () => {

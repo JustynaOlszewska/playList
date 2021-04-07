@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import Spinner from "../../molecules/spinner/Spinner";
 import { getAuthor, updateAuthor } from "../../../api/apiAuthors";
 import { useFormAuthors } from "../../../hook/authors/useFormAuthors";
-const FormAuthors = lazy(() => import("../FormAuthors.js"));
+const FormAuthors = lazy(() => import("./FormAuthors"));
 
 const UpdateAuthors = () => {
   const { id } = useParams();
@@ -16,6 +16,7 @@ const UpdateAuthors = () => {
 
   const { isLoading: isMutating, onFormSubmit } = useFormAuthors(
     updateAuthor,
+    "/authors",
     id
   );
 

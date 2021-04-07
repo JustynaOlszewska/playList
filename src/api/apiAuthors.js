@@ -1,3 +1,5 @@
+const apiURL = `${process.env.REACT_APP_API_SERVER}/${process.env.REACT_APP_GITHUB_ACOUNT}`;
+
 const authorActions = async (url, method, data) => {
   try {
     const res = await fetch(url, {
@@ -14,40 +16,23 @@ const authorActions = async (url, method, data) => {
 };
 
 export const getAllAuthors = () => {
-  return authorActions(
-    `${process.env.REACT_APP_API_SERVER}/justyna-olszewska-authors`,
-    "GET"
-  );
+  return authorActions(`${apiURL}-authors`, "GET");
 };
 
 export const removeAuthor = (id) => {
-  return authorActions(
-    `${process.env.REACT_APP_API_SERVER}/justyna-olszewska-authors/${id}`,
-    "DELETE"
-  );
+  return authorActions(`${apiURL}-authors/${id}`, "DELETE");
 };
 
 export const addAuthor = (data) => {
-  return authorActions(
-    `${process.env.REACT_APP_API_SERVER}/justyna-olszewska-authors`,
-    "POST",
-    data
-  );
+  return authorActions(`${apiURL}-authors`, "POST", data);
 };
 
 export const updateAuthor = ({ id, ...data }) => {
-  return authorActions(
-    `${process.env.REACT_APP_API_SERVER}/justyna-olszewska-authors/${id}`,
-    "PUT",
-    data
-  );
+  return authorActions(`${apiURL}-authors/${id}`, "PUT", data);
 };
 
 export const getAuthor = ({ queryKey }) => {
   /*eslint-disable no-unused-vars*/
   const [_key, { id }] = queryKey;
-  return authorActions(
-    `${process.env.REACT_APP_API_SERVER}/justyna-olszewska-authors/${id}`,
-    "GET"
-  );
+  return authorActions(`${apiURL}-authors/${id}`, "GET");
 };

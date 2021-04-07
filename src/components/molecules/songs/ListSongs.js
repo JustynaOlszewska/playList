@@ -1,28 +1,39 @@
-import React from "react";
+import React, { lazy } from "react";
 import { useQuery } from "react-query";
-import Spinner from "../../molecules/spinner/Spinner";
+import { useRouteMatch, NavLink } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import { getAllSongs } from "../../../api/apiSongs";
 import {
-  StyledListAuthors,
+  StyledListSongs,
   StyledUl,
-} from "../../../styles/styleComponents/StyledAuthors";
-import { getAllAuthors } from "../../../api/apiAuthors";
+} from "../../../styles/styleComponents/songs/StyledListSongs";
+import Spinner from "../../molecules/spinner/Spinner";
+const Song = lazy(() => import("../songs/Song"));
 
 const ListSongs = () => {
-  const { data, error, isLoading, isError } = useQuery("songs", getAllAuthors);
+  const match = useRouteMatch();
+
+  const { data, error, isLoading, isError } = useQuery("songs", getAllSongs);
 
   return (
-    <StyledListAuthors>
+    <StyledListSongs>
+      <h2>List of Songs</h2>
+      <Button variant="outlined" color="inherit">
+        <NavLink style={{ textDecoration: "none" }} to={`${match.url}/addSong`}>
+          Add Song
+        </NavLink>
+      </Button>
       {isLoading ? (
         <Spinner />
       ) : (
         <StyledUl>
           {data.map((song) => (
-            <div key={song.id}>song{song.name}</div>
+            <Song key={song.id} song={song} />
           ))}
         </StyledUl>
       )}
       {isError && <span>Error: {error.message}</span>}
-    </StyledListAuthors>
+    </StyledListSongs>
   );
 };
 
