@@ -31,6 +31,7 @@ const FormSongs = ({ isLoading, type, allAuthors, defaultValue, children }) => {
     defaultValues: defaultValue,
     resolver: yupResolver(schemaValidation),
   });
+  const { duration, title, author } = errors;
 
   useEffect(() => {
     setValue("title", defaultValue?.title);
@@ -39,6 +40,7 @@ const FormSongs = ({ isLoading, type, allAuthors, defaultValue, children }) => {
   }, [defaultValue]);
 
   const taskSongs = type === "add" ? addSong : updateSong;
+
   const { onSubmit } = useSongs(taskSongs, reset, allAuthors);
 
   return (
@@ -85,21 +87,20 @@ const FormSongs = ({ isLoading, type, allAuthors, defaultValue, children }) => {
           inputRef={register}
           errors={errors.duration}
         />
-        <Button variant="outlined" color="primary" type="submit">
+        <Button
+          style={{ margin: "10px 0" }}
+          variant="outlined"
+          color="primary"
+          type="submit"
+        >
           {isLoading ? "Wait..." : children.split(" ").slice(0, 1)}
         </Button>
         {errors.exampleRequired && <span>This field is required</span>}
         <div style={{ position: "absolute", top: "-30%", width: "100%" }}>
-          {errors?.title?.message && (
-            <Alert severity="error">
-              <p>{errors?.title?.message}</p>
+          {(title || duration || author) && (
+            <Alert>
+              {title?.message || duration?.message || author?.message}
             </Alert>
-          )}
-          {errors?.author?.message && (
-            <Alert severity="error">{errors?.author?.message}</Alert>
-          )}
-          {errors?.duration?.message && (
-            <Alert severity="error">{errors?.duration?.message}</Alert>
           )}
         </div>
       </StyledForm>
@@ -108,15 +109,13 @@ const FormSongs = ({ isLoading, type, allAuthors, defaultValue, children }) => {
 };
 
 FormSongs.propTypes = {
-  defaultValue: PropTypes.shape([
-    {
-      title: PropTypes.string,
-      author: PropTypes.shape({
-        name: PropTypes.string,
-      }),
-      duration: PropTypes.number,
-    },
-  ]),
+  defaultValue: PropTypes.shape({
+    title: PropTypes.string,
+    author: PropTypes.shape({
+      name: PropTypes.string,
+    }),
+    duration: PropTypes.number,
+  }),
   onFormSubmit: PropTypes.func,
   isLoading: PropTypes.bool.isRequired,
   type: PropTypes.string.isRequired,

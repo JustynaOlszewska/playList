@@ -29,6 +29,8 @@ const FormAuthors = ({
     resolver: yupResolver(schemaValidation),
   });
 
+  const { name } = errors;
+
   const onSubmit = handleSubmit((data) => {
     onFormSubmit(data);
   });
@@ -55,9 +57,9 @@ const FormAuthors = ({
         </Button>
         {errors.exampleRequired && <span>This field is required</span>}
         <div style={{ position: "absolute", top: "0", width: "100%" }}>
-          {errors?.name?.message && (
+          {name && (
             <Alert severity="error">
-              <p>{errors?.name?.message}</p>
+              <p>{name?.message}</p>
             </Alert>
           )}
         </div>

@@ -27,6 +27,7 @@ const PlayList = () => {
   useEffect(() => {
     setAllSongs(data);
   }, [data]);
+
   //eslint-disable-next-line
   const [{ isOver }, addToPlayList] = useDrop(() => ({
     accept: ItemTypes.PAYLISTDND,
