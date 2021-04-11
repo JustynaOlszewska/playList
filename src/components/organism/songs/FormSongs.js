@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -26,11 +26,17 @@ const schemaValidation = yup.object().shape({
     .required("Duration field is required"),
 });
 
-const FormSongs = ({ defaultValue, isLoading, type, allAuthors, children }) => {
-  const { register, handleSubmit, errors, reset } = useForm({
-    defaultValue,
+const FormSongs = ({ isLoading, type, allAuthors, defaultValue, children }) => {
+  const { register, handleSubmit, errors, reset, setValue } = useForm({
+    defaultValues: defaultValue,
     resolver: yupResolver(schemaValidation),
   });
+
+  useEffect(() => {
+    setValue("title", defaultValue?.title);
+    setValue("duration", defaultValue?.duration);
+    setValue("author", defaultValue?.author?.name);
+  }, [defaultValue]);
 
   const taskSongs = type === "add" ? addSong : updateSong;
   const { onSubmit } = useSongs(taskSongs, reset, allAuthors);
@@ -59,8 +65,8 @@ const FormSongs = ({ defaultValue, isLoading, type, allAuthors, children }) => {
           style={{ width: "80%", margin: "0 0 20px 0" }}
           id="author"
           name="author"
+          errors={errors?.author}
           ref={register}
-          errors={errors.author}
         >
           {allAuthors &&
             allAuthors.map((item) => (
@@ -102,12 +108,21 @@ const FormSongs = ({ defaultValue, isLoading, type, allAuthors, children }) => {
 };
 
 FormSongs.propTypes = {
-  defaultValue: PropTypes.array,
+  defaultValue: PropTypes.shape([
+    {
+      title: PropTypes.string,
+      author: PropTypes.shape({
+        name: PropTypes.string,
+      }),
+      duration: PropTypes.number,
+    },
+  ]),
   onFormSubmit: PropTypes.func,
   isLoading: PropTypes.bool.isRequired,
   type: PropTypes.string.isRequired,
   children: PropTypes.string.isRequired,
   allAuthors: PropTypes.array,
+  refetch: PropTypes.func,
 };
 
 export default FormSongs;
