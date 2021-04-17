@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useDrag } from "react-dnd";
 
-const AllSongs = ({ onDropSongs, songsType, index, song }) => {
+const AllSongs = ({ onDropSongs, songsType, index, ...song }) => {
   //eslint-disable-next-line
   const [{ isDragging }, dragRef] = useDrag({
     item: {
@@ -10,7 +10,10 @@ const AllSongs = ({ onDropSongs, songsType, index, song }) => {
       index,
     },
     end: (item, monitor) => {
-      const dropResult = monitor.getDropResult();
+      const dropResult = monitor.getItem();
+
+      // const dropResult = monitor.getDropResult();
+
       if (item && dropResult) {
         onDropSongs(item);
       }
@@ -19,12 +22,8 @@ const AllSongs = ({ onDropSongs, songsType, index, song }) => {
       isDragging: monitor.isDragging(),
     }),
   });
-  return (
-    <li ref={dragRef}>
-      {song.title}
-      {song.id}
-    </li>
-  );
+
+  return <li ref={dragRef}>{song.title}</li>;
 };
 
 AllSongs.propTypes = {

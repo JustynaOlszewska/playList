@@ -16,11 +16,10 @@ const StyledDiv = styled.div`
 `;
 
 const PlayList = () => {
-  console.log("item", ItemTypes.SONGSDND);
   const [allSongs, setAllSongs] = useState([]);
   ///
   //eslint-disable-next-line
-  const [myPlayList, setMyPayList] = useState([]);
+  const [myPlayList, setMyPlayList] = useState([]);
   ///
   const { data } = useQuery("songs", getAllSongs);
   //, error, isLoading, isError pamietac zeby to dodac d tabicyy
@@ -29,24 +28,36 @@ const PlayList = () => {
   }, [data]);
 
   //eslint-disable-next-line
-  const [{ isOver }, addToPlayList] = useDrop(() => ({
-    accept: ItemTypes.PAYLISTDND,
+  const [{ isOver }, addToPlayList] = useDrop({
+    accept: ItemTypes.PLAYLISTDND,
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
-  }));
+  });
 
   //eslint-disable-next-line
-  const [{ isOver: isSongsOver }, removeFromPlayList] = useDrop(() => ({
+  const [{ isOver: isSongsOver }, removeFromPlayList] = useDrop({
     accept: ItemTypes.SONGSDND,
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
-  }));
+  });
 
   const moveSongs = (item) => {
-    console.log(item);
+    if (item && item.type === ItemTypes.PLAYLISTDND) {
+      setAllSongs((_songsdnd) => [..._songsdnd, myPlayList[item.index]]);
+      setMyPlayList((_playlistdnd) =>
+        _playlistdnd.filter((_, index) => index !== item.index)
+      );
+      console.log("dddd");
+    } else {
+      setMyPlayList((_playlistdnd) => [..._playlistdnd, allSongs[item.index]]);
+      setAllSongs((_songsdnd) =>
+        _songsdnd.filter((_, index) => index !== item.index)
+      );
+    }
   };
+
   return (
     <section>
       <h1>Create and update music playlist</h1>
@@ -65,12 +76,14 @@ const PlayList = () => {
               ))}
           </ul>
         </div>
-        <div>
+        <div
+          style={{ width: "200px", height: "400px", border: "2px solid black" }}
+        >
           <ul ref={addToPlayList}>
             {myPlayList &&
               myPlayList.map((song, index) => (
                 <AllSongs
-                  songsType={ItemTypes.PAYLISTDND}
+                  songsType={ItemTypes.PLAYLISTDND}
                   key={song.id}
                   onDropSongs={moveSongs}
                   index={index}
