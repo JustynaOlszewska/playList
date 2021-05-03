@@ -1,7 +1,7 @@
 import { apiActions, apiURL } from "./apiHelper/apiHelper";
 
 export const getAllPlayList = () => {
-  return apiActions(`${apiURL}-songs`, "GET");
+  return apiActions(`${apiURL}-playlists`, "GET");
 };
 
 export const removePlayList = (id) => {
@@ -13,6 +13,8 @@ export const addPlayList = (data) => {
 };
 
 export const updatePlayList = ({ id, ...data }) => {
+  console.log("ww", id, data);
+
   return apiActions(`${apiURL}-playlists/${id}`, "PUT", data);
 };
 

@@ -2,41 +2,32 @@ import React, { Fragment, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { addSong } from "../../../api/apiSongs";
+import { addSong, updateSong } from "../../../api/apiSongs";
+// import { updateSong } from "../../../api/apiSongs";
 import InputLabel from "@material-ui/core/InputLabel";
 import Button from "@material-ui/core/Button";
 import Alert from "@material-ui/lab/Alert";
-import { updateSong } from "../../../api/apiSongs";
 import {
   StyledInput,
   StyledForm,
 } from "../../../styles/styleComponents/authors/StyledFormAuthors";
 import { useSongs } from "../../../hook/songs/useSongs";
-
-const schemaValidation = yup.object().shape({
-  title: yup
-    .string()
-    .required("Title field is required")
-    .max(30, "Title field should contains max 30 characters"),
-  author: yup.string().required("Author fiels is required"),
-  duration: yup
-    .number()
-    .typeError("Duration field must be a number")
-    .required("Duration field is required"),
-});
+import { schemaValidationSong } from "../../../constants/validationForm";
 
 const FormSongs = ({ isLoading, type, allAuthors, defaultValue, children }) => {
   const { register, handleSubmit, errors, reset, setValue } = useForm({
     defaultValues: defaultValue,
-    resolver: yupResolver(schemaValidation),
+    resolver: yupResolver(schemaValidationSong),
   });
+
   const { duration, title, author } = errors;
+  const { title: titleValue, duration: durationValue } = defaultValue;
+  const { author: name = {} } = defaultValue;
 
   useEffect(() => {
-    setValue("title", defaultValue?.title);
-    setValue("duration", defaultValue?.duration);
-    setValue("author", defaultValue?.author?.name);
+    setValue("title", titleValue);
+    setValue("duration", durationValue);
+    setValue("author", name);
   }, [defaultValue]);
 
   const taskSongs = type === "add" ? addSong : updateSong;
@@ -109,18 +100,26 @@ const FormSongs = ({ isLoading, type, allAuthors, defaultValue, children }) => {
 };
 
 FormSongs.propTypes = {
-  defaultValue: PropTypes.shape({
-    title: PropTypes.string,
-    author: PropTypes.shape({
-      name: PropTypes.string,
+  defaultValue: PropTypes.oneOfType([
+    PropTypes.shape({
+      title: PropTypes.string,
+      author: PropTypes.shape({
+        name: PropTypes.string,
+      }),
+      duration: PropTypes.number,
     }),
-    duration: PropTypes.number,
-  }),
+    PropTypes.string,
+  ]),
   onFormSubmit: PropTypes.func,
   isLoading: PropTypes.bool.isRequired,
   type: PropTypes.string.isRequired,
   children: PropTypes.string.isRequired,
-  allAuthors: PropTypes.array,
+  allAuthors: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      id: PropTypes.number,
+    })
+  ),
   refetch: PropTypes.func,
 };
 

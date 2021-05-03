@@ -1,101 +1,98 @@
-import React, { lazy, useState, useEffect } from "react";
-// const SongsPlayList = lazy(() => import("../organism/playList/SongsPlayList"));
-// const AddPlayList = lazy(() => import("../organism/playList/AddPlayList"));
-import styled from "styled-components";
-/////
-import { useDrop } from "react-dnd";
-import { getAllSongs } from "../../api/apiSongs";
-import { ItemTypes } from "../../constants";
-import { useQuery } from "react-query";
-// const MyPlayList = lazy(() => import("../organism/exercise/MyPlayList"));
-const AllSongs = lazy(() => import("../organism/playList/AllSongs"));
+import React, { useState, useEffect, lazy } from "react";
+import { useRouteMatch } from "react-router-dom";
 
-/////
-const StyledDiv = styled.div`
-  display: flex;
-`;
+import { useQuery } from "react-query";
+import { getAllSongs } from "../../api/apiSongs";
+import { statuses } from "../../constants/data";
+const Error = lazy(() => import("../atom/Error"));
+const Statusses = lazy(() => import("../organism/playList/Statusses"));
+const NavigationPlayList = lazy(() =>
+  import("../organism/playList/NavigationPlayList")
+);
 
 const PlayList = () => {
-  const [allSongs, setAllSongs] = useState([]);
-  ///
-  //eslint-disable-next-line
-  const [myPlayList, setMyPlayList] = useState([]);
-  ///
-  const { data } = useQuery("songs", getAllSongs);
-  //, error, isLoading, isError pamietac zeby to dodac d tabicyy
+  const match = useRouteMatch();
+
+  const { data, isLoading, isError, error } = useQuery("songs", getAllSongs);
+
+  const [items, setItems] = useState([]);
+
+  const [playList, setPlayList] = useState([]);
+  const [isOver, setIsOver] = useState();
   useEffect(() => {
-    setAllSongs(data);
+    if (!isLoading) {
+      const dataCopy = JSON.parse(JSON.stringify([...data]));
+      [dataCopy.map((e) => (e.status = "songs"))];
+      setItems(dataCopy);
+    }
   }, [data]);
 
-  //eslint-disable-next-line
-  const [{ isOver }, addToPlayList] = useDrop({
-    accept: ItemTypes.PLAYLISTDND,
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
-    }),
-  });
+  const changeStatusItems = () => {
+    const itemsCopy = JSON.parse(JSON.stringify(items));
+    const itemsSongs = itemsCopy.filter((item) => item.status === "songs");
+    const itemsPlaylist = itemsCopy.filter(
+      (item) => item.status === "playList"
+    );
+    itemsPlaylist.forEach((e) => (e.status = "songs"));
+    setItems([...itemsSongs, ...itemsPlaylist]);
 
-  //eslint-disable-next-line
-  const [{ isOver: isSongsOver }, removeFromPlayList] = useDrop({
-    accept: ItemTypes.SONGSDND,
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
-    }),
-  });
+    setPlayList([]);
+  };
 
-  const moveSongs = (item) => {
-    if (item && item.type === ItemTypes.PLAYLISTDND) {
-      setAllSongs((_songsdnd) => [..._songsdnd, myPlayList[item.index]]);
-      setMyPlayList((_playlistdnd) =>
-        _playlistdnd.filter((_, index) => index !== item.index)
-      );
-      console.log("dddd");
-    } else {
-      setMyPlayList((_playlistdnd) => [..._playlistdnd, allSongs[item.index]]);
-      setAllSongs((_songsdnd) =>
-        _songsdnd.filter((_, index) => index !== item.index)
-      );
+  const onDrop = (item, monitor, status) => {
+    addToPlayList(item, status);
+    setIsOver(isOver);
+    setItems((prevState) => {
+      const newItems = prevState
+        .filter((index) => index.id !== item.id)
+        .concat({ ...item, status });
+      return [...newItems];
+    });
+  };
+
+  const addToPlayList = (item, status) => {
+    const newPlayList = playList.some((e) => e.id === item.id);
+
+    if (status === "playList") {
+      !newPlayList && setPlayList([...playList, item]);
+    } else if (status === "songs") {
+      const index = playList.findIndex((e) => e.title === item.title);
+      newPlayList && playList.splice(index, 1);
+      setPlayList(playList);
     }
   };
 
+  const moveItem = (dragIndex, hoverIndex) => {
+    const item = items[dragIndex];
+
+    setItems((prevState) => {
+      const newItems = prevState.filter((i, idx) => idx !== dragIndex);
+      newItems.splice(hoverIndex, 0, item);
+      return [...newItems];
+    });
+  };
+
   return (
-    <section>
-      <h1>Create and update music playlist</h1>
-      <StyledDiv>
-        <div>
-          <ul ref={removeFromPlayList}>
-            {allSongs &&
-              allSongs.map((song, index) => (
-                <AllSongs
-                  songsType={ItemTypes.SONGSDND}
-                  key={song.id}
-                  onDropSongs={moveSongs}
-                  index={index}
-                  {...song}
-                />
-              ))}
-          </ul>
-        </div>
-        <div
-          style={{ width: "200px", height: "400px", border: "2px solid black" }}
-        >
-          <ul ref={addToPlayList}>
-            {myPlayList &&
-              myPlayList.map((song, index) => (
-                <AllSongs
-                  songsType={ItemTypes.PLAYLISTDND}
-                  key={song.id}
-                  onDropSongs={moveSongs}
-                  index={index}
-                  {...song}
-                />
-              ))}
-          </ul>
-        </div>
-        {/* <SongsPlayList dropsongs={moveSongs} />
-                <AddPlayList dropsongs={moveSongs} /> */}
-      </StyledDiv>
-    </section>
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <NavigationPlayList />
+      {match.isExact === true ? (
+        <h1 style={{ alignSelf: "center", margin: "15% 0" }}>
+          Manage your playList
+        </h1>
+      ) : (
+        <Statusses
+          isLoading={isLoading}
+          items={items}
+          moveItem={moveItem}
+          onDrop={onDrop}
+          statuses={statuses}
+          playList={playList}
+          setPlayList={setPlayList}
+          changeStatusItems={changeStatusItems}
+        />
+      )}
+      <Error isError={isError} massage={error?.message} />
+    </div>
   );
 };
 

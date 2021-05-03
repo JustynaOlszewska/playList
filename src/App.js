@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
+import { SnackbarProvider } from "notistack";
 import Spinner from "./components/molecules/spinner/Spinner";
 import NavBar from "./components/organism/NavBar";
 import ErrorBoundary from "./ErrorBoundary";
@@ -17,20 +18,22 @@ const NotFound = lazy(() => import("./components/pages/NotFound.js"));
 function App() {
   return (
     <ErrorBoundary>
-      <StyledWrapper>
-        <NavBar />
-        <Suspense fallback={<Spinner />}>
-          <Switch>
-            <Route path="/playList" component={Home} />
-            <Route path="/addAuthor" component={AddAuthor} />
-            <Route path="/updateAuthors/:id" component={UpdateAuthors} />
-            <Route path="/authors" component={Authors} />
-            <Route path="/songs" component={Songs} />
-            <Route path="/listPlay" component={PlayList} />
-            <Route component={NotFound} />
-          </Switch>
-        </Suspense>
-      </StyledWrapper>
+      <SnackbarProvider maxSnack={3}>
+        <StyledWrapper>
+          <NavBar />
+          <Suspense fallback={<Spinner />}>
+            <Switch>
+              <Route path="/playList" component={Home} />
+              <Route path="/addAuthor" component={AddAuthor} />
+              <Route path="/updateAuthors/:id" component={UpdateAuthors} />
+              <Route path="/authors" component={Authors} />
+              <Route path="/songs" component={Songs} />
+              <Route path="/listPlay" component={PlayList} />
+              <Route component={NotFound} />
+            </Switch>
+          </Suspense>
+        </StyledWrapper>
+      </SnackbarProvider>
     </ErrorBoundary>
   );
 }

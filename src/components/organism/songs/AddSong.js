@@ -17,7 +17,12 @@ const AddSongs = () => {
         {isLoading ? (
           <Spinner />
         ) : (
-          <FormSongs type="add" isLoading={isLoading} allAuthors={data}>
+          <FormSongs
+            type="add"
+            isLoading={isLoading}
+            allAuthors={data}
+            defaultValue=""
+          >
             Add Song
           </FormSongs>
         )}

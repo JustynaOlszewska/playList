@@ -15,6 +15,7 @@ const ListSongs = () => {
   const match = useRouteMatch();
 
   const { data, error, isLoading, isError } = useQuery("songs", getAllSongs);
+  const { message = {} } = error || {};
 
   return (
     <StyledListSongs>
@@ -33,7 +34,7 @@ const ListSongs = () => {
           ))}
         </StyledUl>
       )}
-      <Error isError={isError} massage={error?.message} />
+      <Error isError={isError} massage={message} />
     </StyledListSongs>
   );
 };

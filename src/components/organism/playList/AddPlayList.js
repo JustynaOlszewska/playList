@@ -1,45 +1,38 @@
 import React, { lazy } from "react";
-import { useMutation } from "react-query";
 import PropTypes from "prop-types";
+import FormPlayListAdd from "./FormPlayListAdd";
+const DurationPlayList = lazy(() =>
+  import("../../organism/playList/DurationPlayList")
+);
 
-// import { useHistory } from "react-router-dom";
-import { addPlayList } from "../../../api/apiPlayList";
-import Spinner from "../../molecules/spinner/Spinner";
-const FormPlayList = lazy(() => import("./FormPlayList"));
-// import { useFormAuthors } from "../../../hook/authors/useFormAuthors";nie usuwj
-
-const AddPlayList = ({ dropsongs }) => {
-  //   const { isLoading, onFormSubmit } = useFormAuthors(addPlayList, "/authors");nie usuwaj
-  const { mutateAsync, isLoading } = useMutation(addPlayList);
-
-  // const history = useHistory();
-
-  const onFormSubmit = async (data) => {
-    //   await mutateAsync(id ? { ...data, id } : data);z id do update
-    await mutateAsync(data);
-
-    //   history.push(path);
-  };
-
+const AddPlayList = ({ children, isOver, playList, changeStatusItems }) => {
   return (
-    <div>
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <FormPlayList
-          type="add"
-          onFormSubmit={onFormSubmit}
-          isLoading={isLoading}
-          dropsongs={dropsongs}
-        >
-          Add Songs
-        </FormPlayList>
-      )}
-    </div>
+    <section style={{ flexGrow: 3, display: "flex" }}>
+      <FormPlayListAdd
+        playList={playList}
+        type="Add"
+        changeStatusItems={changeStatusItems}
+      >
+        {React.cloneElement(children, { isOver })}
+      </FormPlayListAdd>
+      <DurationPlayList>
+        {playList.length &&
+          playList
+            .map((element) => element.duration)
+            .reduce((total, currentValue) => {
+              const sum = total + currentValue;
+              return sum;
+            })}
+      </DurationPlayList>
+    </section>
   );
 };
 
 AddPlayList.propTypes = {
-  dropsongs: PropTypes.func.isRequired,
+  children: PropTypes.node,
+  isOver: PropTypes.bool,
+  playList: PropTypes.array,
+  changeStatusItems: PropTypes.func,
 };
+
 export default AddPlayList;

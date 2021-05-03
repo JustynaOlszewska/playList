@@ -2,7 +2,6 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import InputLabel from "@material-ui/core/InputLabel";
 import Button from "@material-ui/core/Button";
 import Alert from "@material-ui/lab/Alert";
@@ -10,12 +9,7 @@ import {
   StyledForm,
   StyledInput,
 } from "../../../styles/styleComponents/authors/StyledFormAuthors";
-const schemaValidation = yup.object().shape({
-  name: yup
-    .string()
-    .required("Title field is required")
-    .max(30, "Title field should contains max 30 characters"),
-});
+import { schemaValidationAuthors } from "../../../constants/validationForm";
 
 const FormAuthors = ({
   defaultValue,
@@ -26,10 +20,11 @@ const FormAuthors = ({
 }) => {
   const { register, handleSubmit, errors } = useForm({
     defaultValue,
-    resolver: yupResolver(schemaValidation),
+    resolver: yupResolver(schemaValidationAuthors),
   });
 
   const { name } = errors;
+  const { name: nameValue } = defaultValue;
 
   const onSubmit = handleSubmit((data) => {
     onFormSubmit(data);
@@ -45,12 +40,12 @@ const FormAuthors = ({
         <h1>{children}</h1>
         <InputLabel htmlFor="name">Author</InputLabel>
         <StyledInput
-          defaultValue={defaultValue?.name}
+          defaultValue={nameValue}
           type="text"
           id="name"
           name="name"
           inputRef={register}
-          errors={errors.name}
+          errors={name}
         />
         <Button variant="outlined" color="primary" type="Submit">
           {isLoading ? "Wait..." : children.split(" ").slice(0, 1)}
@@ -69,7 +64,12 @@ const FormAuthors = ({
 };
 
 FormAuthors.propTypes = {
-  defaultValue: PropTypes.object,
+  defaultValue: PropTypes.oneOfType([
+    PropTypes.shape({
+      name: PropTypes.string,
+    }),
+    PropTypes.string,
+  ]),
   onFormSubmit: PropTypes.func,
   isLoading: PropTypes.bool.isRequired,
   type: PropTypes.string.isRequired,

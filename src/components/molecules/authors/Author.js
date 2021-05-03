@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-// import { useMutation, useQueryClient } from "react-query";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import { removeAuthor } from "../../../api/apiAuthors";

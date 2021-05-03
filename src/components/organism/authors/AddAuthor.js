@@ -16,6 +16,7 @@ const AddAuthor = () => {
           type="add"
           onFormSubmit={onFormSubmit}
           isLoading={isLoading}
+          defaultValue=""
         >
           Add Author
         </FormAuthors>
