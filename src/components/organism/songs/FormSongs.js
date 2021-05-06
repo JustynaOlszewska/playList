@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { addSong, updateSong } from "../../../api/apiSongs";
-// import { updateSong } from "../../../api/apiSongs";
 import InputLabel from "@material-ui/core/InputLabel";
 import Button from "@material-ui/core/Button";
 import Alert from "@material-ui/lab/Alert";
@@ -20,10 +19,12 @@ const FormSongs = ({ isLoading, type, allAuthors, defaultValue, children }) => {
     resolver: yupResolver(schemaValidationSong),
   });
 
-  const { duration, title, author } = errors;
+  const { duration, title, author } = errors || {};
   const { title: titleValue, duration: durationValue } = defaultValue;
   const { author: name = {} } = defaultValue;
-
+  const { message: msgDuration } = duration || {};
+  const { message: msgTitle } = title || {};
+  const { message: msgAuthor } = author || {};
   useEffect(() => {
     setValue("title", titleValue);
     setValue("duration", durationValue);
@@ -49,7 +50,7 @@ const FormSongs = ({ isLoading, type, allAuthors, defaultValue, children }) => {
           id="title"
           name="title"
           inputRef={register}
-          errors={errors.title}
+          errors={title}
         />
         <InputLabel style={{ margin: "10px 0" }} htmlFor="author">
           Author
@@ -58,7 +59,7 @@ const FormSongs = ({ isLoading, type, allAuthors, defaultValue, children }) => {
           style={{ width: "80%", margin: "0 0 20px 0" }}
           id="author"
           name="author"
-          errors={errors?.author}
+          errors={author}
           ref={register}
         >
           {allAuthors &&
@@ -76,7 +77,7 @@ const FormSongs = ({ isLoading, type, allAuthors, defaultValue, children }) => {
           id="duration"
           name="duration"
           inputRef={register}
-          errors={errors.duration}
+          errors={duration}
         />
         <Button
           style={{ margin: "10px 0" }}
@@ -89,9 +90,7 @@ const FormSongs = ({ isLoading, type, allAuthors, defaultValue, children }) => {
         {errors.exampleRequired && <span>This field is required</span>}
         <div style={{ position: "absolute", top: "-30%", width: "100%" }}>
           {(title || duration || author) && (
-            <Alert>
-              {title?.message || duration?.message || author?.message}
-            </Alert>
+            <Alert>{msgTitle || msgDuration || msgAuthor}</Alert>
           )}
         </div>
       </StyledForm>

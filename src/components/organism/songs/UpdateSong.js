@@ -21,6 +21,8 @@ const UpdateSongs = () => {
     isLoading: isLoadingSong,
     isError: isErrorSong,
   } = useQuery(["songs", { id }], getSong);
+  const { message: errAuthors } = error || {};
+  const { message: errSong } = errorSong || {};
 
   return (
     <div>
@@ -36,10 +38,7 @@ const UpdateSongs = () => {
           Update Songs
         </FormSongs>
       )}
-      <Error
-        isError={isError || isErrorSong}
-        massage={error?.message || errorSong?.message}
-      />
+      <Error isError={isError || isErrorSong} massage={errAuthors || errSong} />
     </div>
   );
 };

@@ -13,6 +13,20 @@ export const StyledForm = styled.form`
       text-transform: uppercase;
       color: red;
     `}
+  ${({ update }) =>
+    update === "update" &&
+    css`
+      height: 500px;
+      width: 200px;
+      justify-content: start;
+    `}
+    ${({ add }) =>
+    add === "add" &&
+    css`
+      height: 500px;
+      width: 200px;
+      justify-content: start;
+    `}
   @media(min-height: 900px) {
     justify-content: flex-start;
   }

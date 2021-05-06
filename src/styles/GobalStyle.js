@@ -11,7 +11,7 @@ body {
     width: 100%;
     max-width: 1500px;
     margin: 0 auto;
-    background-color: black;
+    background-color: #000000;
 };
 `;
 

@@ -6,15 +6,13 @@ const SongsManagement = lazy(() =>
   import("../molecules/songs/SongsManagement")
 );
 
-const Songs = () => {
-  return (
-    <StyledSongs>
-      <ListSongs />
-      <Suspense fallback={<Spinner />}>
-        <SongsManagement />
-      </Suspense>
-    </StyledSongs>
-  );
-};
+const Songs = () => (
+  <StyledSongs>
+    <ListSongs />
+    <Suspense fallback={<Spinner />}>
+      <SongsManagement />
+    </Suspense>
+  </StyledSongs>
+);
 
 export default Songs;

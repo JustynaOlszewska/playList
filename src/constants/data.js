@@ -1,12 +1,20 @@
 export const statuses = [
   {
     status: "songs",
-    icon: "⭕️",
-    color: "#EB5A46",
   },
   {
     status: "playList",
-    icon: "🔆️",
-    color: "#00C2E0",
+  },
+];
+
+export const navigationPlayList = [
+  {
+    pathDetail: "/add",
+    primary: "Add playlist",
+    add: "add",
+  },
+  {
+    pathDetail: "/update",
+    primary: "Update playlist",
   },
 ];

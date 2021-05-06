@@ -14,7 +14,7 @@ const SongDetails = () => {
     ["songs", { id }],
     getSong
   );
-
+  const { message } = error || {};
   const {
     title = "title unknown",
     duration = "duration unknown",
@@ -41,7 +41,7 @@ const SongDetails = () => {
           </ul>
         </>
       )}
-      <Error isError={isError} massage={error?.message} />
+      <Error isError={isError} massage={message} />
     </StyledDiv>
   );
 };

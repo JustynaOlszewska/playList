@@ -6,6 +6,10 @@ import { statuses } from "../../../constants/data";
 const PlayListManagement = lazy(() =>
   import("../../molecules/playList/PlayListManagement")
 );
+import {
+  StyledChildrenDrop,
+  StyledDrop,
+} from "../../../styles/styleComponents/playList/StyledDropWrapper";
 
 const DropWrapper = ({
   onDrop,
@@ -30,11 +34,11 @@ const DropWrapper = ({
     }),
   });
   return (
-    <div ref={drop} style={{ display: "flex" }}>
+    <StyledDrop ref={drop}>
       {status === "songs" ? (
-        <div style={{ width: "200px", heigth: "400px" }}>
+        <StyledChildrenDrop>
           {React.cloneElement(children, { isOver })}
-        </div>
+        </StyledChildrenDrop>
       ) : (
         <PlayListManagement
           isOver={isOver}
@@ -45,7 +49,7 @@ const DropWrapper = ({
           {React.cloneElement(children, { isOver })}
         </PlayListManagement>
       )}
-    </div>
+    </StyledDrop>
   );
 };
 

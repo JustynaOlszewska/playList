@@ -13,8 +13,6 @@ export const addPlayList = (data) => {
 };
 
 export const updatePlayList = ({ id, ...data }) => {
-  console.log("ww", id, data);
-
   return apiActions(`${apiURL}-playlists/${id}`, "PUT", data);
 };
 

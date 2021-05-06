@@ -9,6 +9,10 @@ const Statusses = lazy(() => import("../organism/playList/Statusses"));
 const NavigationPlayList = lazy(() =>
   import("../organism/playList/NavigationPlayList")
 );
+import {
+  StyledWrapperPlayList,
+  StyledH1PlayList,
+} from "../../styles/styleComponents/playList/StyledPlayList";
 
 const PlayList = () => {
   const match = useRouteMatch();
@@ -16,9 +20,9 @@ const PlayList = () => {
   const { data, isLoading, isError, error } = useQuery("songs", getAllSongs);
 
   const [items, setItems] = useState([]);
-
   const [playList, setPlayList] = useState([]);
   const [isOver, setIsOver] = useState();
+
   useEffect(() => {
     if (!isLoading) {
       const dataCopy = JSON.parse(JSON.stringify([...data]));
@@ -73,12 +77,10 @@ const PlayList = () => {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <StyledWrapperPlayList>
       <NavigationPlayList />
       {match.isExact === true ? (
-        <h1 style={{ alignSelf: "center", margin: "15% 0" }}>
-          Manage your playList
-        </h1>
+        <StyledH1PlayList>Manage your playList</StyledH1PlayList>
       ) : (
         <Statusses
           isLoading={isLoading}
@@ -92,7 +94,7 @@ const PlayList = () => {
         />
       )}
       <Error isError={isError} massage={error?.message} />
-    </div>
+    </StyledWrapperPlayList>
   );
 };
 

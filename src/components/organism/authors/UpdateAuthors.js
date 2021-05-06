@@ -20,6 +20,7 @@ const UpdateAuthors = () => {
     "/authors",
     id
   );
+  const { message } = error || {};
 
   return (
     <div>
@@ -35,7 +36,7 @@ const UpdateAuthors = () => {
           Update Authors
         </FormAuthors>
       )}
-      <Error isError={isError} massage={error?.message} />
+      <Error isError={isError} massage={message} />
     </div>
   );
 };

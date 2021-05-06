@@ -1,97 +1,33 @@
-import React, { useRef, Fragment } from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
-import { useDrop, useDrag } from "react-dnd";
-// import Window from "./Window";
-import { ITEM_TYPE } from "../../../constants/itemType";
+import { StyledContainerItem } from "../../../styles/styleComponents/playList/StyledItem";
+import { useDragDrop } from "../../../hook/playList/useDragDrop";
 
-const Item = ({ item, index, moveItem, status, id }) => {
+const Item = ({ item, index, moveItem, id }) => {
   const ref = useRef(null);
+  const { drop, drag, handlerId, isDragging } = useDragDrop(
+    moveItem,
+    index,
+    id,
+    ref,
+    item
+  );
 
-  const [{ handlerId }, drop] = useDrop({
-    accept: ITEM_TYPE,
-    collect(monitor) {
-      return {
-        handlerId: monitor.getHandlerId(),
-      };
-    },
-    hover(item, monitor) {
-      if (!ref.current) {
-        return;
-      }
-      const dragIndex = item.index;
-      const hoverIndex = index;
+  const { title } = item || {};
 
-      if (dragIndex === hoverIndex) {
-        return;
-      }
-
-      const hoverBoundingRect = ref.current?.getBoundingClientRect();
-
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-
-      const clientOffset = monitor.getClientOffset();
-
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-        return;
-      }
-
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-        return;
-      }
-      moveItem(dragIndex, hoverIndex);
-
-      item.index = hoverIndex;
-    },
-  });
-
-  const [{ isDragging }, drag] = useDrag({
-    item: { type: ITEM_TYPE, ...item, index, id },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
-  // const [show, setShow] = useState(false);
-
-  // const onOpen = () => setShow(true);
-
-  // const onClose = () => setShow(false);
   drag(drop(ref));
 
   return (
-    <Fragment>
-      <div
+    <>
+      <StyledContainerItem
         ref={ref}
-        style={{
-          opacity: isDragging ? 0 : 1,
-          fontSize: "15px",
-          margin: "10px",
-          padding: "10px",
-          borderRadius: "5px",
-          zIndex: "1",
-          backgroundColor: "#3f51b5",
-          color: "white",
-          boxShadow: "5px 5px 8px #888888",
-          width: "80%",
-          textAlign: "center",
-        }}
         data-handler-id={handlerId}
-        // onClick={onOpen}
+        isDragging={isDragging}
       >
-        <div
-          className={"color-bar"}
-          style={{ backgroundColor: status.color }}
-        />
-        <p className={"item-title"}>{item.title}</p>
-      </div>
-      {/* <Window
-                item={item}
-                onClose={onClose}
-                show={show}
-            /> */}
-    </Fragment>
+        <div className={"color-bar"} />
+        <p className={"item-title"}>{title}</p>
+      </StyledContainerItem>
+    </>
   );
 };
 

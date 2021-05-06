@@ -8,25 +8,23 @@ import {
   StyledUl,
 } from "../../styles/styleComponents/StyledNavBar";
 
-const Navbar = () => {
-  return (
-    <AppBar position="static">
-      <StyledToolbar>
-        <Typography variant="h6">Manage your playlists</Typography>
-        <StyledUl>
-          <Button color="inherit">
-            <StyledNavLink to="/authors">Authors</StyledNavLink>
-          </Button>
-          <Button color="inherit">
-            <StyledNavLink to="/songs">Songs</StyledNavLink>
-          </Button>
-          <Button color="inherit">
-            <StyledNavLink to="/listPlay">Playlist</StyledNavLink>
-          </Button>
-        </StyledUl>
-      </StyledToolbar>
-    </AppBar>
-  );
-};
+const Navbar = () => (
+  <AppBar position="static" style={{ backgroundColor: "#000000" }}>
+    <StyledToolbar>
+      <Typography variant="h6">Manage your playlists</Typography>
+      <StyledUl>
+        <Button color="inherit">
+          <StyledNavLink to="/authors">Authors</StyledNavLink>
+        </Button>
+        <Button color="inherit">
+          <StyledNavLink to="/songs">Songs</StyledNavLink>
+        </Button>
+        <Button color="inherit">
+          <StyledNavLink to="/listPlay">Playlist</StyledNavLink>
+        </Button>
+      </StyledUl>
+    </StyledToolbar>
+  </AppBar>
+);
 
 export default Navbar;

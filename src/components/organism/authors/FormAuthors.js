@@ -23,9 +23,9 @@ const FormAuthors = ({
     resolver: yupResolver(schemaValidationAuthors),
   });
 
-  const { name } = errors;
+  const { name } = errors || {};
   const { name: nameValue } = defaultValue;
-
+  const { message: alert } = name || {};
   const onSubmit = handleSubmit((data) => {
     onFormSubmit(data);
   });
@@ -54,7 +54,7 @@ const FormAuthors = ({
         <div style={{ position: "absolute", top: "0", width: "100%" }}>
           {name && (
             <Alert severity="error">
-              <p>{name?.message}</p>
+              <p>{alert}</p>
             </Alert>
           )}
         </div>

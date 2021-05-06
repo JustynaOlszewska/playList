@@ -10,6 +10,7 @@ const AddSongs = () => {
     "authors",
     getAllAuthors
   );
+  const { message } = error || {};
 
   return (
     <>
@@ -27,7 +28,7 @@ const AddSongs = () => {
           </FormSongs>
         )}
       </div>
-      <Error isError={isError} massage={error?.message} />
+      <Error isError={isError} massage={message} />
     </>
   );
 };

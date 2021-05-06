@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import PropTypes from "prop-types";
 import FormPlayListUpdate from "./FormPlayListUpdate";
 import { getAllPlayList } from "../../../api/apiPlayList";
+import { StyleUpdateWrapper } from "../../../styles/styleComponents/playList/StyledUpdatePlayList";
 import Spinner from "../../molecules/spinner/Spinner";
 
 const UpdatePlayList = ({
@@ -17,7 +18,7 @@ const UpdatePlayList = ({
   return isLoading ? (
     <Spinner />
   ) : (
-    <section style={{ flexGrow: 3, display: "flex" }}>
+    <StyleUpdateWrapper>
       <FormPlayListUpdate
         setPlayList={setPlayList}
         playList={playList}
@@ -27,7 +28,7 @@ const UpdatePlayList = ({
       >
         {React.cloneElement(children, { isOver })}
       </FormPlayListUpdate>
-    </section>
+    </StyleUpdateWrapper>
   );
 };
 

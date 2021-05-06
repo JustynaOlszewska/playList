@@ -1,6 +1,6 @@
 import React, { lazy } from "react";
-import { useQuery } from "react-query";
 import { NavLink } from "react-router-dom";
+import { useQuery } from "react-query";
 import Button from "@material-ui/core/Button";
 import { getAllAuthors } from "../../api/apiAuthors";
 import {
@@ -16,6 +16,7 @@ const Authors = () => {
     "authors",
     getAllAuthors
   );
+  const { message: errAuthors } = error || {};
 
   return (
     <StyledListAuthors>
@@ -31,7 +32,7 @@ const Authors = () => {
           ))}
         </StyledUl>
       )}
-      <Error isError={isError} massage={error?.message} />
+      <Error isError={isError} massage={errAuthors} />
     </StyledListAuthors>
   );
 };

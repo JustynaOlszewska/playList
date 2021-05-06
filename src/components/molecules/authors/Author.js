@@ -1,8 +1,8 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
-import Button from "@material-ui/core/Button";
 import { removeAuthor } from "../../../api/apiAuthors";
+import Button from "@material-ui/core/Button";
+import { NavLink } from "react-router-dom";
 import { StyledLi } from "../../../styles/styleComponents/authors/StyledAuthor";
 import { useRemove } from "../../../hook/share/useRemove";
 

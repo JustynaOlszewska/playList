@@ -1,19 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { StyledDurationPlayLists } from "../../../styles/styleComponents/playList/StyledDurationPlayList";
 
 const DurationPlayList = ({ children }) => (
-  <div
-    style={{
-      backgroundColor: "#FDDD55",
-      margin: "0 0 0 15%",
-      height: "400px",
-      boxShadow: "5px 5px 8px #888888",
-    }}
-  >
+  <StyledDurationPlayLists>
     <div>
       The total length of my playlist: <p>{children} minutes</p>
     </div>
-  </div>
+  </StyledDurationPlayLists>
 );
 
 DurationPlayList.propTypes = {

@@ -13,7 +13,7 @@ export const StyledListSongs = styled.section`
 
 export const StyledUl = styled.ul`
   ${FlexDirection}
-  height: 60%;
+  min-height: 100vh;
   width: 95%;
   padding: 0;
 `;

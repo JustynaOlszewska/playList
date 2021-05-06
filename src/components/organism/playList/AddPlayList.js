@@ -1,13 +1,14 @@
 import React, { lazy } from "react";
 import PropTypes from "prop-types";
 import FormPlayListAdd from "./FormPlayListAdd";
+import { StyledWrapperFormPlayListAdd } from "../../../styles/styleComponents/playList/StyledAddPlayList";
 const DurationPlayList = lazy(() =>
   import("../../organism/playList/DurationPlayList")
 );
 
 const AddPlayList = ({ children, isOver, playList, changeStatusItems }) => {
   return (
-    <section style={{ flexGrow: 3, display: "flex" }}>
+    <StyledWrapperFormPlayListAdd>
       <FormPlayListAdd
         playList={playList}
         type="Add"
@@ -24,7 +25,7 @@ const AddPlayList = ({ children, isOver, playList, changeStatusItems }) => {
               return sum;
             })}
       </DurationPlayList>
-    </section>
+    </StyledWrapperFormPlayListAdd>
   );
 };
 

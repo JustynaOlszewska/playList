@@ -1,22 +1,26 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {
+  StyledContainerChildren,
+  StyledText,
+} from "../../../styles/styleComponents/playList/StyledDropHere";
 
 const DropHere = ({ playList, children, text }) => {
   return (
     <>
       {playList.length ? (
-        <div style={{ width: "100%" }} id="children">
+        <StyledContainerChildren id="children">
           {children}
-        </div>
+        </StyledContainerChildren>
       ) : (
-        <span style={{ margin: "0 auto" }}>{text}</span>
+        <StyledText>{text}</StyledText>
       )}
     </>
   );
 };
 DropHere.propTypes = {
   playList: PropTypes.array,
-  children: PropTypes.number,
+  children: PropTypes.object,
   text: PropTypes.string,
 };
 

@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
 import GlobalStyle from "./styles/GobalStyle";
 import App from "./App";
 import { DndProvider } from "react-dnd";
@@ -17,7 +16,6 @@ ReactDOM.render(
           <GlobalStyle />
           <App />
         </Router>
-        <ReactQueryDevtools initialIsOpen={true} />
       </QueryClientProvider>
     </DndProvider>
   </React.StrictMode>,
