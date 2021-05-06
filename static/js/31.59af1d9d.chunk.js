@@ -1,2 +1,0 @@
-(this.webpackJsonpplaylist=this.webpackJsonpplaylist||[]).push([[31],{342:function(t,e,i){"use strict";i.r(e);i(0);var l=i(3);e.default=function(t){var e=t.children;return Object(l.jsx)("div",{style:{backgroundColor:"#FDDD55",boxShadow:"5px 5px 8px #888888",height:"400px",overflow:"auto",display:"flex",flexDirection:"column",alignItems:"center",width:"100%"},children:e})}}}]);
-//# sourceMappingURL=31.59af1d9d.chunk.js.map

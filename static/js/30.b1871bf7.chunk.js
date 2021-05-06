@@ -1,2 +1,0 @@
-(this.webpackJsonpplaylist=this.webpackJsonpplaylist||[]).push([[30],{371:function(t,e,i){"use strict";i.r(e);i(0);var s=i(3);e.default=function(t){var e=t.children;return Object(s.jsx)("div",{style:{backgroundColor:"#FDDD55",margin:"0 0 0 15%",height:"400px",boxShadow:"5px 5px 8px #888888"},children:Object(s.jsxs)("div",{children:["The total length of my playlist: ",Object(s.jsxs)("p",{children:[e," minutes"]})]})})}}}]);
-//# sourceMappingURL=30.b1871bf7.chunk.js.map
