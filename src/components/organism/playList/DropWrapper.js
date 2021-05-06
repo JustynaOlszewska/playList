@@ -62,4 +62,4 @@ DropWrapper.propTypes = {
   changeStatusItems: PropTypes.func,
 };
 
-export default DropWrapper;
+export default React.memo(DropWrapper);

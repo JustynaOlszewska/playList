@@ -15,7 +15,7 @@ import {
   StyledContainerPlayList,
   StyledAlert,
 } from "../../../styles/styleComponents/playList/StyledFormPlayListAdd";
-const DropHere = lazy(() => import("../../organism/playList/DropHere"));
+const DropHere = lazy(() => import("../../molecules/playList/DropHere"));
 
 const FormPlayListAdd = ({ children, playList, changeStatusItems, type }) => {
   const { register, handleSubmit, errors, reset } = useForm({
@@ -67,4 +67,4 @@ FormPlayListAdd.propTypes = {
   type: PropTypes.string,
 };
 
-export default FormPlayListAdd;
+export default React.memo(FormPlayListAdd);

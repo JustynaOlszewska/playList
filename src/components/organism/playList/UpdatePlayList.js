@@ -40,4 +40,4 @@ UpdatePlayList.propTypes = {
   changeStatusItems: PropTypes.func,
 };
 
-export default UpdatePlayList;
+export default React.memo(UpdatePlayList);

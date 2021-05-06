@@ -76,4 +76,4 @@ FormAuthors.propTypes = {
   children: PropTypes.string.isRequired,
 };
 
-export default FormAuthors;
+export default React.memo(FormAuthors);

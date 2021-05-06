@@ -122,4 +122,4 @@ FormSongs.propTypes = {
   refetch: PropTypes.func,
 };
 
-export default FormSongs;
+export default React.memo(FormSongs);

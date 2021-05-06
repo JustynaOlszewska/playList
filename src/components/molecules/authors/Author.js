@@ -28,4 +28,4 @@ Author.propTypes = {
   }),
 };
 
-export default Author;
+export default React.memo(Author);

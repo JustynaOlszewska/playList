@@ -50,4 +50,4 @@ PlayListManagement.propTypes = {
   changeStatusItems: PropTypes.func,
 };
 
-export default PlayListManagement;
+export default React.memo(PlayListManagement);

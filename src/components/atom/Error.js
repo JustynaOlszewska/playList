@@ -9,4 +9,4 @@ Error.propTypes = {
   message: PropTypes.string,
 };
 
-export default Error;
+export default React.memo(Error);

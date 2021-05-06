@@ -48,4 +48,4 @@ Song.propTypes = {
   }),
 };
 
-export default Song;
+export default React.memo(Song);

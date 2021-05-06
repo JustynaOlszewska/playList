@@ -24,4 +24,4 @@ DropHere.propTypes = {
   text: PropTypes.string,
 };
 
-export default DropHere;
+export default React.memo(DropHere);

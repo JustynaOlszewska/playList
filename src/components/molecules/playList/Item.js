@@ -42,4 +42,4 @@ Item.propTypes = {
   id: PropTypes.number,
 };
 
-export default Item;
+export default React.memo(Item);

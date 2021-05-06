@@ -18,7 +18,7 @@ import {
   StyledSong,
 } from "../../../styles/styleComponents/playList/StyledFormPlayListUpdate.js";
 import Spinner from "../../molecules/spinner/Spinner";
-const DropHere = lazy(() => import("./DropHere"));
+const DropHere = lazy(() => import("../../molecules/playList/DropHere"));
 const Error = lazy(() => import("../../atom/Error"));
 
 const FormPlayListUpdate = ({
@@ -104,4 +104,4 @@ FormPlayListUpdate.propTypes = {
   type: PropTypes.string,
 };
 
-export default FormPlayListUpdate;
+export default React.memo(FormPlayListUpdate);

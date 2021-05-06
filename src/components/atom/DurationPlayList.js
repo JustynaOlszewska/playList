@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { StyledDurationPlayLists } from "../../../styles/styleComponents/playList/StyledDurationPlayList";
+import { StyledDurationPlayLists } from "../../styles/styleComponents/playList/StyledDurationPlayList";
 
 const DurationPlayList = ({ children }) => (
   <StyledDurationPlayLists>
@@ -14,4 +14,4 @@ DurationPlayList.propTypes = {
   children: PropTypes.number,
 };
 
-export default DurationPlayList;
+export default React.memo(DurationPlayList);
