@@ -1,2 +1,0 @@
-(this.webpackJsonpplaylist=this.webpackJsonpplaylist||[]).push([[31],{390:function(t,n,e){"use strict";e.r(n);e(0);var i,s=e(18),c=e(16).default.div(i||(i=Object(s.a)(["\n  background-color: #fddd55;\n  margin: 0 0 0 15%;\n  height: 400px;\n  box-shadow: 5px 5px 8px #888888;\n"]))),l=e(3);n.default=function(t){var n=t.children;return Object(l.jsx)(c,{children:Object(l.jsxs)("div",{children:["The total length of my playlist: ",Object(l.jsxs)("p",{children:[n," minutes"]})]})})}}}]);
-//# sourceMappingURL=31.8b5dd124.chunk.js.map

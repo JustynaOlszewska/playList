@@ -1,0 +1,2 @@
+(this.webpackJsonpplaylist=this.webpackJsonpplaylist||[]).push([[32],{377:function(t,n,s){"use strict";s.r(n);s(0);var a,e=s(18),i=s(16).default.h1(a||(a=Object(e.a)(["\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n"]))),l=s(3);n.default=function(){return Object(l.jsx)(i,{children:"Enjoy"})}}}]);
+//# sourceMappingURL=32.58d97ba8.chunk.js.map

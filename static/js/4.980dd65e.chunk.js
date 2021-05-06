@@ -1,0 +1,2 @@
+(this.webpackJsonpplaylist=this.webpackJsonpplaylist||[]).push([[4],{391:function(t,e,n){"use strict";n.r(e);var a,i,c=n(0),l=n.n(c),s=n(18),r=n(16),d=r.default.div(a||(a=Object(s.a)(["\n  width: 100%;\n"]))),h=r.default.span(i||(i=Object(s.a)(["\n  margin: 0 auto;\n"]))),p=n(3),u=function(t){var e=t.playList,n=t.children,a=t.text;return Object(p.jsx)(p.Fragment,{children:e.length?Object(p.jsx)(d,{id:"children",children:n}):Object(p.jsx)(h,{children:a})})};e.default=l.a.memo(u)}}]);
+//# sourceMappingURL=4.980dd65e.chunk.js.map
